@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Fried_Chicken_Calculator.Models.User>
+﻿@model IEnumerable<Fried_Chicken_Calculator.Models.UserHistory>
 
 @{
     ViewBag.Title = "Index";
@@ -12,16 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserPassword)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.UserNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserMoney)
+            @Html.DisplayNameFor(model => model.History)
         </th>
         <th></th>
     </tr>
@@ -29,16 +23,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserPassword)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.UserNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserMoney)
+            @Html.DisplayFor(modelItem => item.History)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
