@@ -12,12 +12,23 @@ namespace Fried_Chicken_Calculator.Controllers
 {
     public class UsersController : Controller
     {
-        private UserDBContext db = new UserDBContext();
+        private CalculatorDBContext db = new CalculatorDBContext();
 
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            var context = new CalculatorDBContext();
+            //var contextuser = from a in db.Users
+            //                  join b in db.UserHistories on a.UserNumber equals b.UserNumber
+            //                  select new {
+            //                      a.UserName,
+            //                      a.UserNumber,
+            //                      a.UserPassword,
+            //                      b.History,
+            //                      a.UserMoney
+            //                  };
+            var contextuser = context.Users.ToList();
+            return View(contextuser);
         }
 
         // GET: Users/Details/5

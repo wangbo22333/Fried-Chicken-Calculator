@@ -16,8 +16,18 @@ namespace Fried_Chicken_Calculator.Models
         
 
     }
-    public class UserDBContext : DbContext
+    public class UserHistory
+    {
+        public int ID { get; set; }
+        public string UserNumber { get; set; }
+        public string History { get; set; }
+        public User User { get; set; }
+    }
+
+    public class CalculatorDBContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<UserHistory> User { get; set; }
+
     }
 }
