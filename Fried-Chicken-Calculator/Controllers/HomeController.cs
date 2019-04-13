@@ -12,6 +12,14 @@ namespace Fried_Chicken_Calculator.Controllers
     {
         public ActionResult Index()
         {
+            if(Session["user"] != null)
+            {
+                ViewBag.Message = Session["user"] + " 欢迎您！";
+            }
+            else
+            {
+                ViewBag.Message = "欢迎登录";
+            }
             return View();
         }
 
@@ -21,12 +29,7 @@ namespace Fried_Chicken_Calculator.Controllers
 
         //    return View();
         //}
-        //public ActionResult GetAuthCode()
-        //{
-        //    var context = new CalculatorDBContext();
-        //    return File(new VerifyCode().GetVerifyCode(), @"image/Gif");
-        //}
-        // GET: /Account/Login
+
 
 
         [HttpPost]
@@ -41,6 +44,7 @@ namespace Fried_Chicken_Calculator.Controllers
             {
                 result.ContentType = "message";
                 result.Data = "success";
+                Session["user"] = Account;
                 return Json(result);
             }
             else
@@ -48,9 +52,7 @@ namespace Fried_Chicken_Calculator.Controllers
                 result.ContentType = "message";
                 result.Data = "error"; 
                 return Json(result);
-            }
-           
-            
+            }            
         }
         public ActionResult Login()
         {
