@@ -63,15 +63,74 @@
 
 <div class="calculator_div">
     <div class="result_panel">
-        123+456=579
+        0
     </div>
     <div class="button_panel">
-        <button>7</button> <button>8</button> <button>9</button> <button>+</button>
-        <button>4</button> <button>5</button> <button>6</button> <button>-</button>
-        <button>1</button> <button>2</button> <button>3</button> <button>×</button>
-        <button>/</button> <button>0</button> <button>.</button> <button>÷</button>
+        <button class="button_number">7</button> <button class="button_number">8</button> <button class="button_number">9</button> <button class="button_operator">+</button>
+        <button class="button_number">4</button> <button class="button_number">5</button> <button class="button_number">6</button> <button class="button_operator">-</button>
+        <button class="button_number">1</button> <button class="button_number">2</button> <button class="button_number">3</button> <button class="button_operator">×</button>
+        <button>/</button> <button class="button_number">0</button> <button class="button_equal">=</button> <button class="button_operator">÷</button>
     </div>
 </div>
+
+<script>
+    var a = 0;
+    var b = 0;
+    var target = "a";
+    var op = "+";
+    $(".button_number").click(function () {
+        c = $(this).text();
+
+        if (target == "a") {
+
+            a = a * 10 + parseInt(c);
+
+            $(".result_panel").text(a);
+
+        } else {
+
+            b = b * 10 + parseInt(c);
+
+            $(".result_panel").text(a);
+            $(".result_panel").append(" " + op + " ");
+            $(".result_panel").append(b);
+
+        }
+
+    });
+
+    $(".button_operator").click(function () {
+        target = "b";
+        op = $(this).text();
+        $(".result_panel").text(a);
+        $(".result_panel").append(" " + op + " ");
+    });
+
+    $(".button_equal").click(function () {
+        $(".result_panel").text(a);
+        $(".result_panel").append(" " + op + " ");
+        $(".result_panel").append(b);
+        $(".result_panel").append(" = ");
+        switch (op) {
+            case "-":
+                $(".result_panel").append(a - b);
+                break;
+            case "×":
+                $(".result_panel").append(a * b);
+                break;
+            case "÷":
+                if (b == 0) {
+                    $(".result_panel").append(a / b);
+                } else {
+                    alert("除数不能为0!");
+                }
+                break;
+            default:
+                $(".result_panel").append(a + b);
+        }
+    });
+
+</script>
 
 <div class="row">
     <div class="col-md-4">
