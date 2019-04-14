@@ -12,6 +12,28 @@ namespace Fried_Chicken_Calculator.Controllers
     {
         public ActionResult Index()
         {
+            CalculatorDBContext Context = new CalculatorDBContext();
+            var context = new CalculatorDBContext();
+            var contextuser = from a in context.Users
+                              join b in context.UserHistories on a.UserNumber equals b.UserNumber
+                              select new
+                              {
+                                  a.UserName,
+                                  a.UserNumber,
+                                  b.History,
+                                  a.UserMoney
+                              };
+
+
+
+            if (Session["user"] != null)
+            {
+                ViewBag.Message = Session["user"] + " 欢迎您！";
+            }
+            else
+            {
+                ViewBag.Message = "欢迎登录";
+            }
             return View();
         }
 
@@ -21,38 +43,44 @@ namespace Fried_Chicken_Calculator.Controllers
 
         //    return View();
         //}
-        //public ActionResult GetAuthCode()
-        //{
-        //    var context = new CalculatorDBContext();
-        //    return File(new VerifyCode().GetVerifyCode(), @"image/Gif");
-        //}
 
-        //public ActionResult CheckLogin(string username, string password, string code)
-        //{
-        //    var context = new CalculatorDBContext();
-        //    var contextuser = from a in context.Users
-        //                      where a.UserName == username
-        //                      select a.UserPassword;
-        //    try
-        //    {
-        //        if (username == "")
-        //            return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登录成功。" }.ToJson());
-        //        else if (password == "123456")
-        //            return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登录成功。" }.ToJson());
-        //        else
-        //            return Content(new AjaxResult { state = ResultType.error.ToString(), message = "请验证帐号及密码！" }.ToJson());
-        //    }
 
-        //    catch (Exception ex)
-        //    {
-        //        return Content(new AjaxResult { state = ResultType.error.ToString(), message = ex.Message }.ToJson());
-        //    }
-        //}
+
+        [HttpPost]
+        public JsonResult Login(string Account, string Password)
+        {
+            CalculatorDBContext Context = new CalculatorDBContext();
+            var contextuser = from a in Context.Users
+                              where a.UserName == Account
+                              select a.UserPassword;
+            JsonResult result = new JsonResult();
+            if(Password == contextuser.FirstOrDefault())
+            {
+                result.ContentType = "message";
+                result.Data = "success";
+                Session["user"] = Account;
+                return Json(result);
+            }
+            else
+            {
+                result.ContentType = "message";
+                result.Data = "error"; 
+                return Json(result);
+            }            
+        }
         public ActionResult Login()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        public ActionResult LoginOut()
+        {
+            if(Session["user"] != null)
+            {
+                Session["user"] = null;
+            }
+            return RedirectToRoute(new { controller = "Home", action= "Index" });
         }
     }
 }

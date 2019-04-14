@@ -24,7 +24,9 @@
                     <li>@Html.ActionLink("主页", "Index", "Home")</li>
                     <li>@Html.ActionLink("后台用户信息", "Index", "Users")</li>
                     <li>@Html.ActionLink("后台历史记录", "index", "UserHistories")</li>
-                    <li>@Html.ActionLink("登录", "Login", "Home")</li>
+                    <li id="loginstate">@Html.ActionLink("登录", "Login", "Home")</li>
+                    <li id="loginOut" style="display:none">@Html.ActionLink("注销", "LoginOut", "Home")</li>
+                    @*<li>@Html.Label("Isession",Session["user"])</li>*@
                 </ul>
             </div>
         </div>

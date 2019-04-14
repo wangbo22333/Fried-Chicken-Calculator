@@ -2,15 +2,92 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>这是计算器放的位子</h1>
-    @*<p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
+
+<script src="/Scripts/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    var jsSession = '@(Session["user"])';
+    if (jsSession != "") {
+        $("#loginstate").css('display', 'none');
+        $("#loginOut").css('display', 'block');
+    } else {
+        $("#loginstate").css('display', 'block');
+        $("#loginOut").css('display', 'none');
+    }
+    //alert(jsSession);
+</script>
+
+<style type="text/css">
+    #key-container {
+        width: 400px;
+        background: linear-gradient(#9dd2ea, #8bceec);
+        border-radius: 3px;
+        box-shadow: 0px 4px #009de4, 0px 10px 15px rgba(0, 0, 0, 0.2);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10%;
+        margin-top: 10%;
+    }
+
+        #key-container div {
+            width: 400px;
+            height: 50px;
+            text-align: right;
+            background-color: black;
+            color: white;
+            border-radius: 6px;
+            box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        #key-container table {
+            border-spacing: 3px;
+            width: 100%;
+        }
+
+            #key-container table tr td {
+                height: 50px;
+                width: 25%;
+                border: 1px solid white;
+                background-color: aqua;
+                border-radius: 6px;
+                box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                position: relative;
+                top: 0;
+            }
+
+    span {
+        user-select: none;
+        cursor: default;
+    }
+
+    #key-container table tr td:hover {
+        background-color: red;
+    }
+
+    #key-container table tr td:active {
+        box-shadow: 0px 0px #6b54d3;
+        top: 4px;
+    }
+</style>
+
+<div id="key-container">
+    <div id='screen'> <span></span> </div> <table>
+        <tr> <td colspan='2'><span>C</span></td> <td><span>转账</span></td><td><span>+</span></td> </tr>
+        <tr" +
+             "> <td><span>7</span></td><td><span>8</span></td> <td><span>9</span></td> <td><span>-</span></td> </tr> <tr" +
+             "><td><span>4</span></td> <td><span>5</span></td><td><span>6</span></td> <td><span>*</span></td> </tr> <tr" +
+             "> <td><span>1</span></td> <td><span>2</span></td> <td><span>3</span></td> <td><span>/</span></td> </tr> <tr" +
+             "><td colspan='2'><span>0</span></td><td><span>.</span></td><td><span>=</span></td></tr>
+    </table>
+
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>个人信息</h2>
+        <h2>@ViewBag.Message</h2>
         <p>
             这里后面显示一下历史记录
         </p>
