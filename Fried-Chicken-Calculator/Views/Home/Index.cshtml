@@ -4,6 +4,17 @@
 
 
 <script src="/Scripts/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    var jsSession = '@(Session["user"])';
+    if (jsSession != "") {
+        $("#loginstate").css('display', 'none');
+        $("#loginOut").css('display', 'block');
+    } else {
+        $("#loginstate").css('display', 'block');
+        $("#loginOut").css('display', 'none');
+    }
+    //alert(jsSession);
+</script>
 
 <style type="text/css">
     #key-container {

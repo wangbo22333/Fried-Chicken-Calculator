@@ -12,7 +12,21 @@ namespace Fried_Chicken_Calculator.Controllers
     {
         public ActionResult Index()
         {
-            if(Session["user"] != null)
+            CalculatorDBContext Context = new CalculatorDBContext();
+            var context = new CalculatorDBContext();
+            var contextuser = from a in context.Users
+                              join b in context.UserHistories on a.UserNumber equals b.UserNumber
+                              select new
+                              {
+                                  a.UserName,
+                                  a.UserNumber,
+                                  b.History,
+                                  a.UserMoney
+                              };
+
+
+
+            if (Session["user"] != null)
             {
                 ViewBag.Message = Session["user"] + " 欢迎您！";
             }
@@ -59,6 +73,14 @@ namespace Fried_Chicken_Calculator.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        public ActionResult LoginOut()
+        {
+            if(Session["user"] != null)
+            {
+                Session["user"] = null;
+            }
+            return RedirectToRoute(new { controller = "Home", action= "Index" });
         }
     }
 }
