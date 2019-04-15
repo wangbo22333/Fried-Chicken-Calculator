@@ -46,8 +46,9 @@ namespace Fried_Chicken_Calculator.Controllers
         [HttpPost]
         public JsonResult Transfer(string User_number,string User_money)
         {
-            ViewBag.Message = Session["user"];
-            double Imoney = 0;
+            //ViewBag.Message = Session["user"];
+            string myname = Session["user"].ToString();
+            double Imoney = Convert.ToDouble(User_money);
             CalculatorDBContext Context = new CalculatorDBContext();
             JsonResult result = new JsonResult();
             var contextmoney= from a in Context.Users
@@ -58,21 +59,25 @@ namespace Fried_Chicken_Calculator.Controllers
                 item.UserMoney = item.UserMoney + Convert.ToDouble(User_money);
                 break;
             }
-            var contextmoney2 = from b in Context.Users
-                               where b.UserName == Session["user"].ToString()
-                               select b.UserMoney;
-            if (contextmoney2.FirstOrDefault() > Convert.ToDouble(User_money))
+            //var contextmoney2 = from b in Context.Users
+            //                   where b.UserName == Session["user"].ToString()
+            //                   select b.UserMoney;
+            var mymoney = Context.Users.Where(u => u.UserName == myname).FirstOrDefault();
+            if (mymoney.UserMoney > Imoney)
             {
+                mymoney.UserMoney = mymoney.UserMoney - Imoney;
                 Context.SaveChanges();
-                result.ContentType = "success";
-                result.Data = "转账成功！";
+                result.ContentType = "message";
+                result.Data = "success";
+                return Json(result);
             }
             else
             {
-                result.ContentType = "error";
-                result.Data = "转账失败，余额不足！";
+                result.ContentType = "message";
+                result.Data = "error";
+                return Json(result);
             }
-            return result;
+            
         }
 
         public ActionResult Transfer()

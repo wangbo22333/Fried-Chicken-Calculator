@@ -31,7 +31,7 @@
             data: { "User_number": user_number, "User_money": user_money },
             success: function (result) {
                 //console.log(result);
-                if (result.ContentType == "success") {
+                if (result.Data == "success") {
                     alert("转账成功！");
                     window.location.href = "/Home/Index";
                 } else {
