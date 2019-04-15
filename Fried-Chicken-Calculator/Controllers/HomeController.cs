@@ -14,25 +14,27 @@ namespace Fried_Chicken_Calculator.Controllers
         {
             CalculatorDBContext Context = new CalculatorDBContext();
             var context = new CalculatorDBContext();
-            var contextuser = from a in context.Users
-                              join b in context.UserHistories on a.UserNumber equals b.UserNumber
-                              select new
-                              {
-                                  a.UserName,
-                                  a.UserNumber,
-                                  b.History,
-                                  a.UserMoney
-                              };
-
-
 
             if (Session["user"] != null)
             {
+                string username = Session["user"].ToString();
+                var usernumber = from a in context.Users
+                                 where a.UserName == username
+                                 select a.UserNumber;
+                //var userinfo = from a in context.Users
+                //               where a.UserName == username
+                //               select a;
+                var userhistory = from b in context.UserHistories
+                                  where b.UserNumber == usernumber.FirstOrDefault()
+                                  select b.History;
+
+                ViewBag.contextview = userhistory;
                 ViewBag.Message = Session["user"] + " 欢迎您！";
             }
             else
             {
                 ViewBag.Message = "欢迎登录";
+                ViewBag.contextview = "没有历史记录";
             }
             return View();
         }

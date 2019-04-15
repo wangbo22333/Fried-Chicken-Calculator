@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
 <script src="/Scripts/jquery-3.3.1.js"></script>
 
 <style type="text/css">
@@ -18,6 +17,7 @@
         padding-top: 1em;
         z-index: 1;
     }
+
     .result_panel {
         display: block;
         width: 100%;
@@ -27,6 +27,7 @@
         font-size: 35px;
         color: white;
     }
+
     .button_panel {
         display: block;
         width: 100%;
@@ -35,9 +36,11 @@
         z-index: 0;
         text-align: center;
     }
-    .button_large{
+
+    .button_large {
         width: 47.5% !important;
     }
+
     .button_panel button {
         background-color: #131313;
         border: 1px solid #1c1c1c;
@@ -51,18 +54,21 @@
         cursor: default;
         font-size: 20px;
     }
+
         .button_panel button:hover {
             background-color: #767676;
             border: 1px solid #919191;
             transition: background-color 0.25s;
             transition: border 0.1s;
         }
+
         .button_panel button:active {
             background-color: #838383;
             border: 1px solid #9D9D9D;
             transition: background-color 0.25s;
             transition: border 0.1s;
         }
+
     .button_panel_dialing {
         display: block;
         width: 100%;
@@ -72,6 +78,7 @@
         text-align: center;
         line-height: 5em;
     }
+
     .button_dialing img {
         height: 3em;
         line-height: 5em;
@@ -79,6 +86,7 @@
         top: -0.2em;
         transition: position 2.0s;
     }
+
     .button_dialing {
         text-align: center;
         height: 5em;
@@ -90,11 +98,13 @@
         transition: background 0.25s, border 0.25s, height 0.25s, width 0.25s, border-radius 0.25s;
         vertical-align: 3em;
     }
+
         .button_dialing:hover {
             border: 3px solid rgb(62, 218, 0);
             background-color: rgb(62, 218, 0);
             transition: background 0.25s, border 0.25s, height 0.25s, width 0.25s, border-radius 0.25s;
         }
+
         .button_dialing:active {
             border: 3px solid rgba(62, 218, 0, 0.5);
             background-color: rgba(62, 218, 0, 0.733);
@@ -111,7 +121,6 @@
             transition: background 0.25s, border 0.25s, height 0.25s, width 0.25s, border-radius 0.25s;
             vertical-align: 3em;
         }
-
 </style>
 
 <div class="calculator_div">
@@ -130,170 +139,179 @@
     </div>
 </div>
 
-    <script>
-        var inputing_decimal_number = false;
-        var decimal_value = 0.0;
-        var decimal_digital = 0;
-        var max_decimal_digital = 0
-        var status = "a"; // 正在输入 a, b, op
-        var a = 0;
-        var b = 0;
-        var target = "a";
-        var op = "+";
-        var result = 0;
-        $(".button_number").click(function () {
+<script>
+    var inputing_decimal_number = false;
+    var decimal_value = 0.0;
+    var decimal_digital = 0;
+    var max_decimal_digital = 0
+    var status = "a"; // 正在输入 a, b, op
+    var a = 0;
+    var b = 0;
+    var target = "a";
+    var op = "+";
+    var result = 0;
+    $(".button_number").click(function () {
 
-            c = $(this).text();
+        c = $(this).text();
 
-            if (c == ".") {
-                inputing_decimal_number = true;
-                decimal_value = 0.0;
-                decimal_digital = 0;
-                return;
-            }
+        if (c == ".") {
+            inputing_decimal_number = true;
+            decimal_value = 0.0;
+            decimal_digital = 0;
+            return;
+        }
 
-            if (inputing_decimal_number == true) {
+        if (inputing_decimal_number == true) {
 
-                decimal_value_increment = c * (10 ** (-(++decimal_digital)));
-                if (max_decimal_digital < decimal_digital)
-                    max_decimal_digital = decimal_digital
+            decimal_value_increment = c * (10 ** (-(++decimal_digital)));
+            if (max_decimal_digital < decimal_digital)
+                max_decimal_digital = decimal_digital
 
-                if (target == "a") {
+            if (target == "a") {
 
-                    a += decimal_value_increment;
-                    a = a.toFixed(decimal_digital);
+                a += decimal_value_increment;
+                a = a.toFixed(decimal_digital);
 
-                    $(".result_panel").text(a);
-
-                } else {
-
-                    b += decimal_value_increment;
-                    b = b.toFixed(decimal_digital);
-
-                    $(".result_panel").text(a);
-                    $(".result_panel").append(" " + op + " ");
-                    $(".result_panel").append(b);
-
-                }
-
-                a = parseFloat(a);
-                b = parseFloat(b);
+                $(".result_panel").text(a);
 
             } else {
 
-                if (target == "a") {
+                b += decimal_value_increment;
+                b = b.toFixed(decimal_digital);
 
-                    a = a * 10 + parseFloat(c);
+                $(".result_panel").text(a);
+                $(".result_panel").append(" " + op + " ");
+                $(".result_panel").append(b);
 
-                    $(".result_panel").text(a);
-
-                    status = "a";
-
-                } else {
-
-                    b = b * 10 + parseFloat(c);
-
-                    $(".result_panel").text(a);
-                    $(".result_panel").append(" " + op + " ");
-                    $(".result_panel").append(b);
-
-                    status = "b";
-                }
             }
 
-        });
+            a = parseFloat(a);
+            b = parseFloat(b);
 
-        $(".button_operator").click(function () {
+        } else {
 
-            if (status == "b") {
-                a = result;
-                b = 0;
+            if (target == "a") {
+
+                a = a * 10 + parseFloat(c);
+
+                $(".result_panel").text(a);
+
+                status = "a";
+
+            } else {
+
+                b = b * 10 + parseFloat(c);
+
+                $(".result_panel").text(a);
+                $(".result_panel").append(" " + op + " ");
+                $(".result_panel").append(b);
+
+                status = "b";
             }
+        }
 
-            inputing_decimal_number = false;
-            decimal_value = 0.0;
-            decimal_digital = 0;
+    });
 
-            target = "b";
-            status = "op"
-            op = $(this).text();
+    $(".button_operator").click(function () {
 
-            $(".result_panel").text(a);
-            $(".result_panel").append(" " + op + " ");
-
-        });
-
-        $(".button_equal").click(function () {
-            $(".result_panel").text(a);
-            $(".result_panel").append(" " + op + " ");
-            $(".result_panel").append(b);
-            $(".result_panel").append(" = ");
-            switch (op) {
-                case "-":
-                    result = a - b;
-                    break;
-                case "×":
-                    result = a * b;
-                    break;
-                case "÷":
-                    if (b == 0) {
-                        result = a / b;
-                    } else {
-                        result = 0;
-                    }
-                    break;
-                default:
-                    result = a + b;
-            }
-            $(".result_panel").append(result.toFixed(max_decimal_digital));
-
-            max_decimal_digital = 0;
-            inputing_decimal_number = false;
-            decimal_value = 0.0;
-            decimal_digital = 0;
-        });
-
-        $(".button_large").click(function () {
-
-            max_decimal_digital = 0;
-            inputing_decimal_number = false;
-            decimal_value = 0.0;
-            decimal_digital = 0;
-
-            status = "a"; // 正在输入 a, b, op
-            a = 0;
+        if (status == "b") {
+            a = result;
             b = 0;
-            target = "a";
-            op = "+";
-            result = 0;
+        }
 
-            $(".result_panel").html("0");
+        inputing_decimal_number = false;
+        decimal_value = 0.0;
+        decimal_digital = 0;
 
-        });
+        target = "b";
+        status = "op"
+        op = $(this).text();
 
-        $(".button_dialing").click(function(){
+        $(".result_panel").text(a);
+        $(".result_panel").append(" " + op + " ");
 
-            if($(".button_dialing").attr("status") != "dialing") {
-                $(".button_dialing").attr("status", "dialing");
-                $(".result_panel").text("通话中...");
-                $(".result_panel").css("text-align", "center");
-            } else {
-                $(".button_dialing").removeAttr("status");
-                $(".result_panel").text("0");
-                $(".result_panel").css("text-align", "right");
-            }
+    });
 
-        })
+    $(".button_equal").click(function () {
+        $(".result_panel").text(a);
+        $(".result_panel").append(" " + op + " ");
+        $(".result_panel").append(b);
+        $(".result_panel").append(" = ");
+        switch (op) {
+            case "-":
+                result = a - b;
+                break;
+            case "×":
+                result = a * b;
+                break;
+            case "÷":
+                if (b == 0) {
+                    result = a / b;
+                } else {
+                    result = 0;
+                }
+                break;
+            default:
+                result = a + b;
+        }
+        $(".result_panel").append(result.toFixed(max_decimal_digital));
 
-    </script>
+        max_decimal_digital = 0;
+        inputing_decimal_number = false;
+        decimal_value = 0.0;
+        decimal_digital = 0;
+    });
 
-    <div class="row">
-        <div class="col-md-4">
-            <h2>@ViewBag.Message</h2>
-            <p>
-                这里后面显示一下历史记录
-            </p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </div>
+    $(".button_large").click(function () {
 
+        max_decimal_digital = 0;
+        inputing_decimal_number = false;
+        decimal_value = 0.0;
+        decimal_digital = 0;
+
+        status = "a"; // 正在输入 a, b, op
+        a = 0;
+        b = 0;
+        target = "a";
+        op = "+";
+        result = 0;
+
+        $(".result_panel").html("0");
+
+    });
+
+    $(".button_dialing").click(function () {
+
+        if ($(".button_dialing").attr("status") != "dialing") {
+            $(".button_dialing").attr("status", "dialing");
+            $(".result_panel").text("通话中...");
+            $(".result_panel").css("text-align", "center");
+        } else {
+            $(".button_dialing").removeAttr("status");
+            $(".result_panel").text("0");
+            $(".result_panel").css("text-align", "right");
+        }
+
+    })
+
+</script>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>@ViewBag.Message</h2>
+        <p>
+            历史记录：
+        </p>
+        @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>*@
     </div>
+
+</div>
+@foreach (var item in ViewBag.contextview)
+{
+    <tr>
+        <td>
+            @item
+        </td>
+
+    </tr>
+}
