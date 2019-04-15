@@ -43,13 +43,44 @@ namespace Fried_Chicken_Calculator.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult Transfer(string User_number,string User_money)
+        {
+            ViewBag.Message = Session["user"];
+            double Imoney = 0;
+            CalculatorDBContext Context = new CalculatorDBContext();
+            JsonResult result = new JsonResult();
+            var contextmoney= from a in Context.Users
+                              where a.UserNumber== User_number
+                              select a;
+            foreach(var item in contextmoney)
+            {
+                item.UserMoney = item.UserMoney + Convert.ToDouble(User_money);
+                break;
+            }
+            var contextmoney2 = from b in Context.Users
+                               where b.UserName == Session["user"].ToString()
+                               select b.UserMoney;
+            if (contextmoney2.FirstOrDefault() > Convert.ToDouble(User_money))
+            {
+                Context.SaveChanges();
+                result.ContentType = "success";
+                result.Data = "转账成功！";
+            }
+            else
+            {
+                result.ContentType = "error";
+                result.Data = "转账失败，余额不足！";
+            }
+            return result;
+        }
+
         public ActionResult Transfer()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = Session["user"];
 
             return View();
         }
-
 
 
         [HttpPost]

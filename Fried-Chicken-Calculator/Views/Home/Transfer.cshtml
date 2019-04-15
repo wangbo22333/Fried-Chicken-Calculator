@@ -3,5 +3,42 @@
 }
 <h2>我的转账</h2>
 <h3>@ViewBag.Message</h3>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
 
-<p>Use this area to provide additional information.</p>
+<form class="form-horizontal">
+    <input type="text" id="Account_number" value="" placeholder="输入对方账号（数字）" required>
+    <input type="text" id="Transfer_money" value="" placeholder="可以更改转账金额" required>
+    <input type="button" id="iTransfer" value="提交" onclick="post_money()">
+</form>
+
+
+<script type="text/javascript">
+    window.onload = function loadmoney() {
+        var imoney = localStorage.getItem("money");
+        $("#Transfer_money").attr("value", imoney);
+    };
+    function post_money() {
+        var user_number = $("#Account_number").val();
+        alert(user_number);
+        var user_money = localStorage.getItem("money");
+        @*var user_name = "@ViewBag.Message";*@
+        $.ajax({
+            type: "POST",
+            url: "/Home/Transfer",
+            async: true,
+            dataType: "json",
+            data: { "User_number": user_number, "User_money": user_money },
+            success: function (result) {
+                //console.log(result);
+                if (result.ContentType == "success") {
+                    alert("转账成功！");
+                    window.location.href = "/Home/Index";
+                } else {
+                    alert("转账失败！");
+                }
+
+            }
+        });
+    };
+</script>
