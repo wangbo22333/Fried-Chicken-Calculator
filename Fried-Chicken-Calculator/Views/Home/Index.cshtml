@@ -6,10 +6,11 @@
 
 <style type="text/css">
     .calculator_div {
-        margin-top: 10em;
+        margin-top: 5em;
+        margin-bottom: 5em;
         display: block;
         width: 34em;
-        height: 32em;
+        height: 37em;
         margin-left: auto;
         margin-right: auto;
         border-radius: 1em 1em 1em 1em;
@@ -33,6 +34,9 @@
         height: 20em;
         z-index: 0;
         text-align: center;
+    }
+    .button_large{
+        width: 47.5% !important;
     }
     .button_panel button {
         background-color: #131313;
@@ -66,44 +70,105 @@
         0
     </div>
     <div class="button_panel">
-        <button class="button_number">7</button> <button class="button_number">8</button> <button class="button_number">9</button> <button class="button_operator">+</button>
-        <button class="button_number">4</button> <button class="button_number">5</button> <button class="button_number">6</button> <button class="button_operator">-</button>
-        <button class="button_number">1</button> <button class="button_number">2</button> <button class="button_number">3</button> <button class="button_operator">×</button>
-        <button>/</button> <button class="button_number">0</button> <button class="button_equal">=</button> <button class="button_operator">÷</button>
+        <button class="button_clear button_large">C</button> <button class="button_transfer">转账</button> <button class="button_operator">+</button>
+        <button class="button_number">7</button> <button class="button_number">8</button> <button class="button_number">9</button> <button class="button_operator">-</button>
+        <button class="button_number">4</button> <button class="button_number">5</button> <button class="button_number">6</button> <button class="button_operator">×</button>
+        <button class="button_number">1</button> <button class="button_number">2</button> <button class="button_number">3</button> <button class="button_operator">÷</button>
+        <button class="button_number button_large">0</button> <button class="button_number">.</button> <button class="button_equal">=</button>
     </div>
 </div>
 
 <script>
+    var inputing_decimal_number = false;
+    var decimal_value = 0.0;
+    var decimal_digital = 0;
+    var max_decimal_digital = 0
+    var status = "a"; // 正在输入 a, b, op
     var a = 0;
     var b = 0;
     var target = "a";
     var op = "+";
+    var result = 0;
     $(".button_number").click(function () {
+
         c = $(this).text();
 
-        if (target == "a") {
+        if (c == ".") {
+            inputing_decimal_number = true;
+            decimal_value = 0.0;
+            decimal_digital = 0;
+            return;
+        }
 
-            a = a * 10 + parseInt(c);
+        if (inputing_decimal_number == true) {
 
-            $(".result_panel").text(a);
+            decimal_value_increment = c * (10 ** (-(++decimal_digital)));
+            if (max_decimal_digital < decimal_digital)
+                max_decimal_digital = decimal_digital
+
+            if (target == "a") {
+
+                a += decimal_value_increment;
+                a = a.toFixed(decimal_digital);
+
+                $(".result_panel").text(a);
+
+            } else {
+
+                b += decimal_value_increment;
+                b = b.toFixed(decimal_digital);
+
+                $(".result_panel").text(a);
+                $(".result_panel").append(" " + op + " ");
+                $(".result_panel").append(b);
+
+            }
+
+            a = parseFloat(a);
+            b = parseFloat(b);
 
         } else {
 
-            b = b * 10 + parseInt(c);
+            if (target == "a") {
 
-            $(".result_panel").text(a);
-            $(".result_panel").append(" " + op + " ");
-            $(".result_panel").append(b);
+                a = a * 10 + parseFloat(c);
 
+                $(".result_panel").text(a);
+
+                status = "a";
+
+            } else {
+
+                b = b * 10 + parseFloat(c);
+
+                $(".result_panel").text(a);
+                $(".result_panel").append(" " + op + " ");
+                $(".result_panel").append(b);
+
+                status = "b";
+            }
         }
 
     });
 
     $(".button_operator").click(function () {
+
+        if (status == "b") {
+            a = result;
+            b = 0;
+        }
+
+        inputing_decimal_number = false;
+        decimal_value = 0.0;
+        decimal_digital = 0;
+
         target = "b";
+        status = "op"
         op = $(this).text();
+
         $(".result_panel").text(a);
         $(".result_panel").append(" " + op + " ");
+
     });
 
     $(".button_equal").click(function () {
@@ -113,21 +178,45 @@
         $(".result_panel").append(" = ");
         switch (op) {
             case "-":
-                $(".result_panel").append(a - b);
+                result = a - b;
                 break;
             case "×":
-                $(".result_panel").append(a * b);
+                result = a * b;
                 break;
             case "÷":
                 if (b == 0) {
-                    $(".result_panel").append(a / b);
+                    result = a / b;
                 } else {
-                    alert("除数不能为0!");
+                    result = 0;
                 }
                 break;
             default:
-                $(".result_panel").append(a + b);
+                result = a + b;
         }
+        $(".result_panel").append(result.toFixed(max_decimal_digital));
+
+        max_decimal_digital = 0;
+        inputing_decimal_number = false;
+        decimal_value = 0.0;
+        decimal_digital = 0;
+    });
+
+    $(".button_large").click(function () {
+
+        max_decimal_digital = 0;
+        inputing_decimal_number = false;
+        decimal_value = 0.0;
+        decimal_digital = 0;
+
+        status = "a"; // 正在输入 a, b, op
+        a = 0;
+        b = 0;
+        target = "a";
+        op = "+";
+        result = 0;
+
+        $(".result_panel").html("0");
+
     });
 
 </script>
