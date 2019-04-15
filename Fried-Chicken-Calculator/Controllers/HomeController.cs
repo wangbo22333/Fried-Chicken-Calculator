@@ -32,7 +32,7 @@ namespace Fried_Chicken_Calculator.Controllers
                                  select c.UserMoney;
                 ViewBag.contextview = userhistory;
                 ViewBag.contextmoney = "账户余额："+ usermoney.FirstOrDefault();
-                ViewBag.Message = Session["user"] + " 欢迎您！";
+                ViewBag.Message = Session["user"];
             }
             else
             {

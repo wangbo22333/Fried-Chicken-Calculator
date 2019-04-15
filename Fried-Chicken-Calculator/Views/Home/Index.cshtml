@@ -295,28 +295,10 @@
     })
 
 </script>
-<script type="text/javascript">
-    $(function () {
-        $(".button_transfer").click(
-            function () {
-                var str = $(".result_panel").text();
-                var index = str.indexOf("=");
-                if (index == -1) {
-                    var money = str;
-                    alert(money);
-                } else {
-                    var money = str.substring(index + 2, str.length);
-                    alert(money);
-                }
 
-
-            }
-        );
-    });
-</script>
 <div class="row">
     <div class="col-md-6">
-        <h2>@ViewBag.Message</h2>
+        <h2 id=" iusername">@ViewBag.Message</h2>
         <p>
             历史记录：
         </p>
@@ -337,3 +319,40 @@
 
     </tr>
 }
+
+
+
+    <script type="text/javascript">
+        $(function () {
+            $(".button_transfer").click(
+                function () {
+                    var str = $(".result_panel").text();
+                    var index = str.indexOf("=");
+                    var username = "@ViewBag.Message";
+                    alert(username);
+                    if (username == "欢迎登录") {
+                        alert("请登录后使用转账功能!");
+                    } else {
+                        if (index == -1) {
+                            var money = str;
+                            if (money <= 0) {
+                                alert("转账金额必须大于0，请重新转账!");
+                            } else {
+                                localStorage.setItem("money", money);
+                            }
+                        } else {
+                            var money = str.substring(index + 2, str.length);
+                            if (money <= 0) {
+                                alert("转账金额必须大于0，请重新转账!");
+                            } else {
+                                localStorage.setItem("money", money);
+                            }
+                        }
+                    }
+
+
+
+                }
+            );
+        });
+    </script>

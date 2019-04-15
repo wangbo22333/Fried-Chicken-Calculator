@@ -7,11 +7,10 @@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script type="text/javascript">
-
     function post() { 
         var account = $("#txt_Account").val();
         var password = $("#txt_Password").val();
-        //alert(account);
+        //alert(localStorage.getItem("money"));
         $.ajax({
             type: "POST",
             url: "/Home/Login",
