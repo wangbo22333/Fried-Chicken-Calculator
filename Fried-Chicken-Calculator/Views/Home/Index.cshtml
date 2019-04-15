@@ -10,7 +10,7 @@
         margin-bottom: 5em;
         display: block;
         width: 34em;
-        height: 37em;
+        height: 46em;
         margin-left: auto;
         margin-right: auto;
         border-radius: 1em 1em 1em 1em;
@@ -31,7 +31,7 @@
         display: block;
         width: 100%;
         padding: 0.3em;
-        height: 20em;
+        height: 30em;
         z-index: 0;
         text-align: center;
     }
@@ -63,6 +63,55 @@
             transition: background-color 0.25s;
             transition: border 0.1s;
         }
+    .button_panel_dialing {
+        display: block;
+        width: 100%;
+        padding: 0.3em;
+        height: 5em;
+        z-index: 0;
+        text-align: center;
+        line-height: 5em;
+    }
+    .button_dialing img {
+        height: 3em;
+        line-height: 5em;
+        position: relative;
+        top: -0.2em;
+        transition: position 2.0s;
+    }
+    .button_dialing {
+        text-align: center;
+        height: 5em;
+        width: 5em;
+        border-radius: 3em;
+        outline: none;
+        border: 3px solid rgb(51, 175, 0);
+        background-color: rgb(59, 204, 0);
+        transition: background 0.25s, border 0.25s, height 0.25s, width 0.25s, border-radius 0.25s;
+        vertical-align: 3em;
+    }
+        .button_dialing:hover {
+            border: 3px solid rgb(62, 218, 0);
+            background-color: rgb(62, 218, 0);
+            transition: background 0.25s, border 0.25s, height 0.25s, width 0.25s, border-radius 0.25s;
+        }
+        .button_dialing:active {
+            border: 3px solid rgba(62, 218, 0, 0.5);
+            background-color: rgba(62, 218, 0, 0.733);
+            transition: background 0.25s, border 0.25s, height 0.25s, width 0.25s, border-radius 0.25s;
+        }
+
+        .button_dialing[status='dialing'] {
+            height: 5em;
+            width: 15em;
+            border-radius: 1em;
+            outline: none;
+            border: 3px solid rgb(230, 82, 82);
+            background-color: rgb(230, 82, 82);
+            transition: background 0.25s, border 0.25s, height 0.25s, width 0.25s, border-radius 0.25s;
+            vertical-align: 3em;
+        }
+
 </style>
 
 <div class="calculator_div">
@@ -76,158 +125,175 @@
         <button class="button_number">1</button> <button class="button_number">2</button> <button class="button_number">3</button> <button class="button_operator">÷</button>
         <button class="button_number button_large">0</button> <button class="button_number">.</button> <button class="button_equal">=</button>
     </div>
+    <div class="button_panel_dialing">
+        <button class="button_dialing"><img src="/Content/phone.png" /></button>
+    </div>
 </div>
 
-<script>
-    var inputing_decimal_number = false;
-    var decimal_value = 0.0;
-    var decimal_digital = 0;
-    var max_decimal_digital = 0
-    var status = "a"; // 正在输入 a, b, op
-    var a = 0;
-    var b = 0;
-    var target = "a";
-    var op = "+";
-    var result = 0;
-    $(".button_number").click(function () {
+    <script>
+        var inputing_decimal_number = false;
+        var decimal_value = 0.0;
+        var decimal_digital = 0;
+        var max_decimal_digital = 0
+        var status = "a"; // 正在输入 a, b, op
+        var a = 0;
+        var b = 0;
+        var target = "a";
+        var op = "+";
+        var result = 0;
+        $(".button_number").click(function () {
 
-        c = $(this).text();
+            c = $(this).text();
 
-        if (c == ".") {
-            inputing_decimal_number = true;
+            if (c == ".") {
+                inputing_decimal_number = true;
+                decimal_value = 0.0;
+                decimal_digital = 0;
+                return;
+            }
+
+            if (inputing_decimal_number == true) {
+
+                decimal_value_increment = c * (10 ** (-(++decimal_digital)));
+                if (max_decimal_digital < decimal_digital)
+                    max_decimal_digital = decimal_digital
+
+                if (target == "a") {
+
+                    a += decimal_value_increment;
+                    a = a.toFixed(decimal_digital);
+
+                    $(".result_panel").text(a);
+
+                } else {
+
+                    b += decimal_value_increment;
+                    b = b.toFixed(decimal_digital);
+
+                    $(".result_panel").text(a);
+                    $(".result_panel").append(" " + op + " ");
+                    $(".result_panel").append(b);
+
+                }
+
+                a = parseFloat(a);
+                b = parseFloat(b);
+
+            } else {
+
+                if (target == "a") {
+
+                    a = a * 10 + parseFloat(c);
+
+                    $(".result_panel").text(a);
+
+                    status = "a";
+
+                } else {
+
+                    b = b * 10 + parseFloat(c);
+
+                    $(".result_panel").text(a);
+                    $(".result_panel").append(" " + op + " ");
+                    $(".result_panel").append(b);
+
+                    status = "b";
+                }
+            }
+
+        });
+
+        $(".button_operator").click(function () {
+
+            if (status == "b") {
+                a = result;
+                b = 0;
+            }
+
+            inputing_decimal_number = false;
             decimal_value = 0.0;
             decimal_digital = 0;
-            return;
-        }
 
-        if (inputing_decimal_number == true) {
+            target = "b";
+            status = "op"
+            op = $(this).text();
 
-            decimal_value_increment = c * (10 ** (-(++decimal_digital)));
-            if (max_decimal_digital < decimal_digital)
-                max_decimal_digital = decimal_digital
+            $(".result_panel").text(a);
+            $(".result_panel").append(" " + op + " ");
 
-            if (target == "a") {
+        });
 
-                a += decimal_value_increment;
-                a = a.toFixed(decimal_digital);
-
-                $(".result_panel").text(a);
-
-            } else {
-
-                b += decimal_value_increment;
-                b = b.toFixed(decimal_digital);
-
-                $(".result_panel").text(a);
-                $(".result_panel").append(" " + op + " ");
-                $(".result_panel").append(b);
-
+        $(".button_equal").click(function () {
+            $(".result_panel").text(a);
+            $(".result_panel").append(" " + op + " ");
+            $(".result_panel").append(b);
+            $(".result_panel").append(" = ");
+            switch (op) {
+                case "-":
+                    result = a - b;
+                    break;
+                case "×":
+                    result = a * b;
+                    break;
+                case "÷":
+                    if (b == 0) {
+                        result = a / b;
+                    } else {
+                        result = 0;
+                    }
+                    break;
+                default:
+                    result = a + b;
             }
+            $(".result_panel").append(result.toFixed(max_decimal_digital));
 
-            a = parseFloat(a);
-            b = parseFloat(b);
+            max_decimal_digital = 0;
+            inputing_decimal_number = false;
+            decimal_value = 0.0;
+            decimal_digital = 0;
+        });
 
-        } else {
+        $(".button_large").click(function () {
 
-            if (target == "a") {
+            max_decimal_digital = 0;
+            inputing_decimal_number = false;
+            decimal_value = 0.0;
+            decimal_digital = 0;
 
-                a = a * 10 + parseFloat(c);
-
-                $(".result_panel").text(a);
-
-                status = "a";
-
-            } else {
-
-                b = b * 10 + parseFloat(c);
-
-                $(".result_panel").text(a);
-                $(".result_panel").append(" " + op + " ");
-                $(".result_panel").append(b);
-
-                status = "b";
-            }
-        }
-
-    });
-
-    $(".button_operator").click(function () {
-
-        if (status == "b") {
-            a = result;
+            status = "a"; // 正在输入 a, b, op
+            a = 0;
             b = 0;
-        }
+            target = "a";
+            op = "+";
+            result = 0;
 
-        inputing_decimal_number = false;
-        decimal_value = 0.0;
-        decimal_digital = 0;
+            $(".result_panel").html("0");
 
-        target = "b";
-        status = "op"
-        op = $(this).text();
+        });
 
-        $(".result_panel").text(a);
-        $(".result_panel").append(" " + op + " ");
+        $(".button_dialing").click(function(){
 
-    });
+            if($(".button_dialing").attr("status") != "dialing") {
+                $(".button_dialing").attr("status", "dialing");
+                $(".result_panel").text("通话中...");
+                $(".result_panel").css("text-align", "center");
+            } else {
+                $(".button_dialing").removeAttr("status");
+                $(".result_panel").text("0");
+                $(".result_panel").css("text-align", "right");
+            }
 
-    $(".button_equal").click(function () {
-        $(".result_panel").text(a);
-        $(".result_panel").append(" " + op + " ");
-        $(".result_panel").append(b);
-        $(".result_panel").append(" = ");
-        switch (op) {
-            case "-":
-                result = a - b;
-                break;
-            case "×":
-                result = a * b;
-                break;
-            case "÷":
-                if (b == 0) {
-                    result = a / b;
-                } else {
-                    result = 0;
-                }
-                break;
-            default:
-                result = a + b;
-        }
-        $(".result_panel").append(result.toFixed(max_decimal_digital));
+        })
 
-        max_decimal_digital = 0;
-        inputing_decimal_number = false;
-        decimal_value = 0.0;
-        decimal_digital = 0;
-    });
+    </script>
 
-    $(".button_large").click(function () {
+    <div class="row">
+        <div class="col-md-4">
+            <h2>@ViewBag.Message</h2>
+            <p>
+                这里后面显示一下历史记录
+            </p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        </div>
 
-        max_decimal_digital = 0;
-        inputing_decimal_number = false;
-        decimal_value = 0.0;
-        decimal_digital = 0;
-
-        status = "a"; // 正在输入 a, b, op
-        a = 0;
-        b = 0;
-        target = "a";
-        op = "+";
-        result = 0;
-
-        $(".result_panel").html("0");
-
-    });
-
-</script>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>@ViewBag.Message</h2>
-        <p>
-            这里后面显示一下历史记录
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
     </div>
-   
-</div>
