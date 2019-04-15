@@ -44,3 +44,25 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Home/GetSession",
+            async: true,
+            dataType: "text",
+            success: function (result) {
+                //console.log(result);
+                //alert(result);
+                if (result != "") {
+                 $("#loginstate").css('display', 'none');
+                 $("#loginOut").css('display', 'block');
+                 } else {
+                 $("#loginstate").css('display', 'block');
+                 $("#loginOut").css('display', 'none');
+                }
+                
+            }
+        });
+    });
+</script>

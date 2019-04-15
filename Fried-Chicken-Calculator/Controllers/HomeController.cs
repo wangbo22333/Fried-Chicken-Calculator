@@ -82,5 +82,21 @@ namespace Fried_Chicken_Calculator.Controllers
             }
             return RedirectToRoute(new { controller = "Home", action= "Index" });
         }
+
+
+        [HttpGet]
+        public string GetSession()
+        {
+            if (Session["user"] == null)
+            {
+                return "";
+            }
+            else
+            {
+                string result = Session["user"].ToString();
+                return (result);
+            }
+            
+        }
     }
 }
