@@ -295,14 +295,36 @@
     })
 
 </script>
+<script type="text/javascript">
+    $(function () {
+        $(".button_transfer").click(
+            function () {
+                var str = $(".result_panel").text();
+                var index = str.indexOf("=");
+                if (index == -1) {
+                    var money = str;
+                    alert(money);
+                } else {
+                    var money = str.substring(index + 2, str.length);
+                    alert(money);
+                }
 
+
+            }
+        );
+    });
+</script>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <h2>@ViewBag.Message</h2>
         <p>
             历史记录：
         </p>
         @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>*@
+    </div>
+    <div class="col-md-4">
+        <h2 id="Imoney">@ViewBag.contextmoney</h2>
+
     </div>
 
 </div>

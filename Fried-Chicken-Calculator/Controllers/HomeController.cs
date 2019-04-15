@@ -27,14 +27,18 @@ namespace Fried_Chicken_Calculator.Controllers
                 var userhistory = from b in context.UserHistories
                                   where b.UserNumber == usernumber.FirstOrDefault()
                                   select b.History;
-
+                var usermoney = from c in context.Users
+                                 where c.UserName == username
+                                 select c.UserMoney;
                 ViewBag.contextview = userhistory;
+                ViewBag.contextmoney = "账户余额："+ usermoney.FirstOrDefault();
                 ViewBag.Message = Session["user"] + " 欢迎您！";
             }
             else
             {
                 ViewBag.Message = "欢迎登录";
                 ViewBag.contextview = "没有历史记录";
+                ViewBag.contextmoney = "";
             }
             return View();
         }
