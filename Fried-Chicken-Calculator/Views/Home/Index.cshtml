@@ -329,7 +329,6 @@
                     var str = $(".result_panel").text();
                     var index = str.indexOf("=");
                     var username = "@ViewBag.Message";
-                    alert(username);
                     if (username == "欢迎登录") {
                         alert("请登录后使用转账功能!");
                     } else {
@@ -339,6 +338,7 @@
                                 alert("转账金额必须大于0，请重新转账!");
                             } else {
                                 localStorage.setItem("money", money);
+                                window.location.href = "/Home/Transfer";
                             }
                         } else {
                             var money = str.substring(index + 2, str.length);
@@ -346,6 +346,7 @@
                                 alert("转账金额必须大于0，请重新转账!");
                             } else {
                                 localStorage.setItem("money", money);
+                                window.location.href = "/Home/Transfer";
                             }
                         }
                     }
