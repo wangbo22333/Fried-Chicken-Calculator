@@ -204,5 +204,37 @@ namespace Fried_Chicken_Calculator.Controllers
             }
             
         }
+
+        public ActionResult Register()
+        {
+            if (Session["user"] != null)
+            {
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult Register(string Username,string Password,string Usernumber,string Usermoney)
+        {
+            double money = Convert.ToDouble(Usermoney);
+            CalculatorDBContext Context = new CalculatorDBContext();
+            JsonResult result = new JsonResult();
+            Context.Users.Add(
+                new User
+                {
+                    UserName = Username,
+                    UserPassword = Password,
+                    UserNumber = Usernumber,
+                    UserMoney = money,
+                }
+                );
+            Context.SaveChanges();
+            result.ContentType = "message";
+            result.Data = "success";
+            return Json(result);
+        }
+
+
     }
 }

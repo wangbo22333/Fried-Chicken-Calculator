@@ -26,6 +26,7 @@
                     <li>@Html.ActionLink("后台历史记录", "index", "UserHistories")</li>
                     <li id="loginstate">@Html.ActionLink("登录", "Login", "Home")</li>
                     <li id="loginOut" style="display:none">@Html.ActionLink("注销", "LoginOut", "Home")</li>
+                    <li id="register">@Html.ActionLink("注册", "Register", "Home")</li>
                     @*<li>@Html.Label("Isession",Session["user"])</li>*@
                 </ul>
             </div>
@@ -56,10 +57,12 @@
                 //alert(result);
                 if (result != "") {
                  $("#loginstate").css('display', 'none');
-                 $("#loginOut").css('display', 'block');
+                    $("#loginOut").css('display', 'block');
+                    $("#register").css('display','none');
                  } else {
                  $("#loginstate").css('display', 'block');
-                 $("#loginOut").css('display', 'none');
+                    $("#loginOut").css('display', 'none');
+                    $("#register").css('display', 'block');
                 }
                 
             }

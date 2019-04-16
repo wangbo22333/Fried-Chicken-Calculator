@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "注册";
+}
+
+<link href="@Url.Content("~/Content/login.css")" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script type="text/javascript">
+    function post_Register() {
+        var username = $("#txt_Account1").val();
+        var password1 = $("#txt_Password1").val();
+        var password2 = $("#txt_Password2").val();
+        var usernumber = $("#txt_Number").val();
+        var usermoney = $("#txt_Money").val();
+        if (password1 != password2) {
+            alert("请重新输入密码！");
+        } else {
+            var password = password2;
+            $.ajax({
+                type: "POST",
+                url: "/Home/Register",
+                async: true,
+                dataType: "json",
+                data: { "Username": username, "Password": password, "Usernumber": usernumber, "Usermoney": usermoney },
+                success: function (result) {
+                    //console.log(result);
+                    if (result.Data == "success") {
+                        alert("注册成功！");
+                        //$("#loginstate").css('display', 'none');
+                        window.location.href = "/Home/Index";
+                    } else {
+                        alert("注册失败，请重新注册！");
+                    }
+
+                }
+            });
+        }
+        //alert(localStorage.getItem("money"));
+        
+      }
+</script>
+
+<form class="sign-up">
+    <h1 class="sign-up-title">马上注册！！</h1>
+    <input type="text" id="txt_Account1" class="sign-up-input" placeholder="用户名" required>
+    <input type="password" id="txt_Password1" class="sign-up-input" placeholder="密码" required>
+    <input type="password" id="txt_Password2" class="sign-up-input" placeholder="确认密码" required>
+    <input type="text" id="txt_Number" class="sign-up-input" placeholder="用户账号" required>
+    <input type="text" id="txt_Money" class="sign-up-input" placeholder="用户存款" required>
+    <input type="button" id="txt_Register" value="注册" onclick="post_Register()" class="sign-up-button">
+</form>
+
