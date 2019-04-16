@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Home Page";
 }
 <script src="/Scripts/jquery-3.3.1.js"></script>
@@ -150,6 +150,7 @@
     var target = "a";
     var op = "+";
     var result = 0;
+
     $(".button_number").click(function () {
 
         c = $(this).text();
@@ -199,6 +200,7 @@
                 status = "a";
 
             } else {
+                console.log('b='+b);
 
                 b = b * 10 + parseFloat(c);
 
@@ -245,11 +247,12 @@
                 result = a * b;
                 break;
             case "÷":
-                if (b == 0) {
+                if (b != 0) {
                     result = a / b;
                 } else {
                     result = 0;
                 }
+                max_decimal_digital = 3;
                 break;
             default:
                 result = a + b;
@@ -262,7 +265,7 @@
         decimal_digital = 0;
     });
 
-    $(".button_large").click(function () {
+    $(".button_clear").click(function () {
 
         max_decimal_digital = 0;
         inputing_decimal_number = false;
@@ -287,6 +290,14 @@
             $(".result_panel").text("通话中...");
             $(".result_panel").css("text-align", "center");
         } else {
+
+            status = "a"; // 正在输入 a, b, op
+            a = 0;
+            b = 0;
+            target = "a";
+            op = "+";
+            result = 0;
+
             $(".button_dialing").removeAttr("status");
             $(".result_panel").text("0");
             $(".result_panel").css("text-align", "right");
