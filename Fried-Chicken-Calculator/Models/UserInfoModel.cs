@@ -23,6 +23,20 @@ namespace Fried_Chicken_Calculator.Models
         public string History { get; set; }
         public User User { get; set; }
     }
+    public class UserTransferTo
+    {
+        public int ID { get; set; }
+        public string UserNumber { get; set; }
+        public string ToHistory { get; set; }
+        public User User { get; set; }
+    }
+    public class UserTransferIn
+    {
+        public int ID { get; set; }
+        public string UserNumber { get; set; }
+        public string InHistory { get; set; }
+        public User User { get; set; }
+    }
 
     public class CalculatorDBContext : DbContext
     {
@@ -32,6 +46,8 @@ namespace Fried_Chicken_Calculator.Models
         }       
         public DbSet<User> Users { get; set; }
         public DbSet<UserHistory> UserHistories { get; set; }
+        public DbSet<UserTransferTo> UserTransferTos { get; set; }
+        public DbSet<UserTransferIn> UserTransferIns { get; set; }
 
     }
     public class CalculatorDBInitializer : CreateDatabaseIfNotExists<CalculatorDBContext>
@@ -40,6 +56,8 @@ namespace Fried_Chicken_Calculator.Models
         {
             IList<User> defusers = new List<User>();
             IList<UserHistory> defuserHistories = new List<UserHistory>();
+            IList<UserTransferTo> defuserTransferTos = new List<UserTransferTo>();
+            IList<UserTransferIn> defuserTransferIns = new List<UserTransferIn>();
             defusers.Add(
                 new User
                 {
@@ -104,6 +122,49 @@ namespace Fried_Chicken_Calculator.Models
                 }
                 );
             context.UserHistories.AddRange(defuserHistories);
+            defuserTransferTos.Add(
+                new UserTransferTo
+                {
+                    ID = 1,
+                    UserNumber = "1001",
+                    ToHistory = "向1003账户转账120",
+                }
+                );
+            defuserTransferTos.Add(
+                new UserTransferTo
+                {
+                    ID = 2,
+                    UserNumber = "1001",
+                    ToHistory = "向1002账户转账50",
+                }
+                );
+            defuserTransferTos.Add(
+                new UserTransferTo
+                {
+                    ID = 3,
+                    UserNumber = "1001",
+                    ToHistory = "向1002账户转账80",
+                }
+                );
+            context.UserTransferTos.AddRange(defuserTransferTos);
+
+            defuserTransferIns.Add(
+                new UserTransferIn
+                {
+                    ID = 1,
+                    UserNumber = "1001",
+                    InHistory = "1002账户向我转账20",
+                }
+                );
+            defuserTransferIns.Add(
+                new UserTransferIn
+                {
+                    ID = 2,
+                    UserNumber = "1001",
+                    InHistory = "1003账户向我转账100",
+                }
+                );
+            context.UserTransferIns.AddRange(defuserTransferIns);
             base.Seed(context);
         }
         
