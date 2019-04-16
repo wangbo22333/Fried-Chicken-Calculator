@@ -88,6 +88,16 @@ namespace Fried_Chicken_Calculator.Models
                     UserMoney = 5000
                 }
                 );
+            defusers.Add(
+                new User
+                {
+                    ID = 4,
+                    UserName = "admin",
+                    UserPassword = "admin",
+                    UserNumber = "1000",
+                    UserMoney = 999999
+                }
+                );
             context.Users.AddRange(defusers);
             defuserHistories.Add(
                 new UserHistory

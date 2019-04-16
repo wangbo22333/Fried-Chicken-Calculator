@@ -22,9 +22,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("主页", "Index", "Home")</li>
-                    <li>@Html.ActionLink("后台用户信息", "Index", "Users")</li>
-                    <li>@Html.ActionLink("后台历史记录", "index", "UserHistories")</li>
-                    <li id="loginstate">@Html.ActionLink("登录", "Login", "Home")</li>
+                    <li id="Iuserinfo" style="display:none">@Html.ActionLink("后台用户信息", "Index", "Users")</li>
+                    <li id="Iuserrecode" style="display:none">@Html.ActionLink("后台历史记录", "index", "UserHistories")</li>
+                    <li id="loginstate" >@Html.ActionLink("登录", "Login", "Home")</li>
                     <li id="loginOut" style="display:none">@Html.ActionLink("注销", "LoginOut", "Home")</li>
                     <li id="register">@Html.ActionLink("注册", "Register", "Home")</li>
                     @*<li>@Html.Label("Isession",Session["user"])</li>*@
@@ -58,7 +58,12 @@
                 if (result != "") {
                  $("#loginstate").css('display', 'none');
                     $("#loginOut").css('display', 'block');
-                    $("#register").css('display','none');
+                    $("#register").css('display', 'none');
+                    if (result == "admin") {
+                        $("#Iuserinfo").css('display', 'block');
+                        $("#Iuserrecode").css('display', 'block');
+                    }
+                        
                  } else {
                  $("#loginstate").css('display', 'block');
                     $("#loginOut").css('display', 'none');
