@@ -4,6 +4,7 @@
 }
 
 <link href="@Url.Content("~/Content/login.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/login_and_register.css")" rel="stylesheet" type="text/css" />
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script type="text/javascript">
@@ -41,6 +42,71 @@
       }
 </script>
 
+<style>
+    .login-div-outer{
+        background-image: url(/Content/reg_bg.jpg);
+    }
+    .login-form{
+        display: block;
+        width: 45em;
+        margin-left: 160px;
+    }
+    .login-form-register{
+        color: white;
+    }
+    .login-form-register:hover{
+        color: white;
+    }
+</style>
+
+<div class="login-div-outer">
+    <div class="login-div-main">
+        <label class="login-label">注册</label>
+        <form class="login-form">
+
+            <div class="login-info-block">
+                <label>用&nbsp;户&nbsp;名</label><br>
+                <input type="text" id="txt_Account" class="login-form-text" required>
+            </div>
+
+            <br>
+
+            <div class="login-info-block">
+                <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label><br>
+                <input type="password" id="txt_Password1" class="login-form-text" required>
+            </div>
+
+            <div class="login-info-block">
+                <label>确认密码</label><br>
+                <input type="password" id="txt_Password2" class="login-form-text" required>
+            </div>
+
+            <br>
+
+            <div class="login-info-block">
+                <label>用户账号</label><br>
+                <input type="text" id="txt_Number" class="login-form-text" required>
+            </div>
+
+            <div class="login-info-block">
+                <label>用户存款</label><br>
+                <input type="text" id="txt_Money" class="login-form-text" required>
+            </div>
+
+            <br>
+
+            <div class="login-info-block">
+                <input type="button" id="txt_Register" value="注&nbsp;&nbsp;册" onclick="post_Register()" class="login-form-button" >
+            </div>
+            
+            <div class="login-info-block">
+                    <a href="/Home/Login" class="login-form-register">已有账号，去登录。</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--
 <form class="sign-up">
     <h1 class="sign-up-title">马上注册！！</h1>
     <input type="text" id="txt_Account1" class="sign-up-input" placeholder="用户名" required>
@@ -50,4 +116,4 @@
     <input type="text" id="txt_Money" class="sign-up-input" placeholder="用户存款" required>
     <input type="button" id="txt_Register" value="注册" onclick="post_Register()" class="sign-up-button">
 </form>
-
+-->

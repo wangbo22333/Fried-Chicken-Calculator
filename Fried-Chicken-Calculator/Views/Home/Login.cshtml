@@ -4,6 +4,7 @@
 @*<h2>@ViewBag.Title.</h2>
     <h3>@ViewBag.Message</h3>*@
 <link href="@Url.Content("~/Content/login.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/login_and_register.css")" rel="stylesheet" type="text/css" />
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script type="text/javascript">
@@ -34,91 +35,30 @@
 
 <style>
     .login-div-outer{
-        width: 100%;
-        background: black;
-        display: block;
-        height: 0;
-        padding-bottom:50%;
-        margin-top: 4em;
-        margin-bottom: 4em;
-        border-radius: 3em;
-        background-image: url(/Content/login_bg.png);
-        background-size: cover;
-        box-shadow: 20px 20px 80px #666;
-        transition: box-shadow 1s, border 1s, width 1s, padding-bottom 1s;
-        border: none;/*1px solid rgba(150, 150, 150, 1.0);*/
-        overflow: hidden;
-    }
-    .login-div-outer:hover{
-        width: 101%;
-        padding-bottom: 51%;
-        box-shadow: 0px 0px 15px #000;
-        border: none;/*1px solid rgba(110, 110, 110, 1.0);*/
-        transition: box-shadow 1s, border 1s, width 1s, padding-bottom 1s;
-    }
-    .login-label{
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 55px;
-        font-weight: lighter;
-        margin-left: 160px;
-        margin-top: 1.6em;
-        margin-bottom: 0px;
-    }
-    .login-div-main{
-        background-color: rgba(0, 0, 0, 0);
-        transition: background-color 2s, opacity 2s;
-        display: block;
-        width: 100%;
-        height: 50em;
-        opacity: 0.80;
-    }
-    .login-div-main:hover{
-        background-color: rgba(0, 0, 0, 0.6);
-        transition: background-color 1s, opacity 1s;
-        opacity: 0.9;
+        background-image: url(/Content/login_bg.jpg);
     }
     .login-form{
+        display: block;
+        width: 20em;
         margin-left: 160px;
     }
-    .login-form label{
+    .login-form-register-div{
+        text-align: right; 
+        width: 100%;
+        padding-top: 1em;
+    }
+    .login-form-register{
         color: white;
-        font-weight: lighter;
-        margin-top: 1em;
-        margin-bottom: 0em;
     }
-    .login-form-text{
-        outline: none;
-        width: 30em;
-        height: 2em;
-        line-height: 2em;
-        font-size: 25px;
-        border: none;
-        padding-left: 0.5em;
-        padding-right: 0.5em;
-        transition: background-color 2s;
-        font-weight: lighter;
-        border-radius: 3px;
-        background-color: #fff;
-    }
-    .login-form-text :hover{
-        background-color: rgb(204, 225, 240);
-    }
-    .login-form-button{
-        outline: none;
-        width: 30em;
-        height: 4em;
-        border: none;
-        background-color: #f0776c;
-        margin-top: 2.5em;
+    .login-form-register:hover{
         color: white;
-        border-radius: 3px;
     }
     .login-div-qrcode{
         position: relative;
         float: right;
         width: 200px;
         top: 210px;
-        right: 340px;
+        right: 200px;
         opacity: 0.8;
         border-radius: 3px;
         overflow: hidden;
@@ -131,11 +71,22 @@
         <img class="login-div-qrcode" src="/Content/qrcode.jpg">
 
         <form class="login-form">
-            <label>用&nbsp;户&nbsp;名</label><br>
-            <input type="text" id="txt_Account" class="login-form-text" required><br>
-            <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label><br>
-            <input type="password" id="txt_Password" class="login-form-text" required><br>
-            <input type="button" id="login" value="登&nbsp;&nbsp;录" onclick="post()" class="login-form-button" >
+            <div class="login-info-block">
+                <label>用&nbsp;户&nbsp;名</label><br>
+                <input type="text" id="txt_Account" class="login-form-text" required>
+            </div>
+            <div class="login-info-block">
+                <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label><br>
+                <input type="password" id="txt_Password" class="login-form-text" required>
+            </div>
+            <div class="login-info-block">
+                <input type="button" id="login" value="登&nbsp;&nbsp;录" onclick="post()" class="login-form-button" >
+            </div>
+            <div class="login-info-block">
+                <div class="login-form-register-div">
+                    <a href="/Home/Register" class="login-form-register">注册</a>
+                </div>
+            </div>
         </form>
     </div>
 </div>
