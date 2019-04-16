@@ -30,15 +30,29 @@ namespace Fried_Chicken_Calculator.Controllers
                 var usermoney = from c in context.Users
                                  where c.UserName == username
                                  select c.UserMoney;
+                var usernum = context.Users.Where(u => u.UserName == username).FirstOrDefault();
+                //var userto = context.UserTransferTos.Where(u => u.UserNumber == usernum.UserNumber).
+                //var userin = context.UserTransferIns.Where(u => u.UserNumber == usernum.UserNumber);
+                var userto = from d in context.UserTransferTos
+                             where d.UserNumber == usernum.UserNumber
+                             select d.ToHistory;
+                var userin = from e in context.UserTransferIns
+                             where e.UserNumber == usernum.UserNumber
+                             select e.InHistory;
                 ViewBag.contextview = userhistory;
                 ViewBag.contextmoney = "账户余额："+ usermoney.FirstOrDefault();
                 ViewBag.Message = Session["user"];
+                ViewBag.TransferTo = userto;
+                ViewBag.TransferIn = userin;
+
             }
             else
             {
                 ViewBag.Message = "欢迎登录";
                 ViewBag.contextview = "无";
                 ViewBag.contextmoney = "";
+                ViewBag.TransferTo = "无";
+                ViewBag.TransferIn = "无";
             }
             return View();
         }
