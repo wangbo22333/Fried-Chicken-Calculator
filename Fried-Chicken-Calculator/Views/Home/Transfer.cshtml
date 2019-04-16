@@ -1,17 +1,22 @@
 ﻿@{
     ViewBag.Title = "转账";
 }
-<h2>我的转账</h2>
+<h2>转账</h2>
 <h3>@ViewBag.Message</h3>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
-
-<form class="form-horizontal">
-    <input type="text" id="Account_number" value="" placeholder="输入对方账号（数字）" required>
-    <input type="text" id="Transfer_money" value="" placeholder="可以更改转账金额" required>
-    <input type="button" id="iTransfer" value="提交" onclick="post_money()">
-</form>
-
+<div class="panel">
+    <div class="panel-heading panel-danger">
+        <div class="panel-title">请确认转账金额和账户</div>    
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal">
+            <input type="text" id="Account_number" value="" placeholder="输入对方账号（数字）" required>
+            <input type="text" id="Transfer_money" value="" placeholder="可以更改转账金额" required>
+            <input type="button" class="btn btn-danger" id="iTransfer" value="提交" onclick="post_money()">
+        </form>
+    </div>
+</div>
 
 <script type="text/javascript">
     window.onload = function loadmoney() {

@@ -200,7 +200,7 @@
                 status = "a";
 
             } else {
-                console.log('b='+b);
+                console.log('b=' + b);
 
                 b = b * 10 + parseFloat(c);
 
@@ -307,8 +307,9 @@
 
 </script>
 
-<div class="alert alert-dismissable" role="alert">
-    <h2 id=" iusername">@ViewBag.Message</h2>
+<div class=" alert-info" role="alert">
+    <h2 id=" iusername" class="col-md-6">@ViewBag.Message</h2>
+    <h2 class="col-md-6">@ViewBag.contextmoney</h2>
 </div>
 <div class="row">
     <div class="col-sm-6">
@@ -321,11 +322,11 @@
                     <div class="list-group">
                         @foreach (var item in ViewBag.contextview)
                         {
-                        <a href="#" class="list-group-item">@item</a>                          
+                            <a href="#" class="list-group-item">@item</a>
                         }
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -336,29 +337,33 @@
                 <h3 class="panel-title">转账历史记录</h3>
             </div>
             <div class="panel-body">
-                <div class="list-group">
-                    <a class="list-group-item-heading">转出记录</a>
-                    @foreach (var item in ViewBag.TransferTo)
-                    {
-                        <a href="#" class="list-group-item">@item</a>
-                    }
+                <div class="col-sm-6">
+                    <div class="list-group">
+                        <a class="list-group-item-heading">转出记录</a>
+                        @foreach (var item in ViewBag.TransferTo)
+                        {
+                            <a href="#" class="list-group-item">@item</a>
+                        }
+                    </div>
                 </div>
-                <div class="list-group">
-                    <a class="list-group-item-heading">转入记录</a>
-                    @foreach (var item in ViewBag.TransferIn)
-                    {
-                        <a href="#" class="list-group-item">@item</a>
-                    }
+                <div class="col-sm-6">
+                    <div class="list-group">
+                        <a class="list-group-item-heading">转入记录</a>
+                        @foreach (var item in ViewBag.TransferIn)
+                        {
+                            <a href="#" class="list-group-item">@item</a>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
 
     </div><!-- /.col-sm-4 -->
-   
+
 </div>
 
 
-    <script type="text/javascript">
+<script type="text/javascript">
         $(function () {
             $(".button_transfer").click(
                 function () {
@@ -392,4 +397,4 @@
                 }
             );
         });
-    </script>
+</script>

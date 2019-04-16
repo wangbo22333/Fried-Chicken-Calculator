@@ -50,7 +50,7 @@ namespace Fried_Chicken_Calculator.Controllers
             {
                 ViewBag.Message = "欢迎登录";
                 ViewBag.contextview = "无";
-                ViewBag.contextmoney = "";
+                ViewBag.contextmoney = "请登录";
                 ViewBag.TransferTo = "无";
                 ViewBag.TransferIn = "无";
             }
