@@ -1,4 +1,4 @@
 # Fried-Chicken-Calculator
 Supercalculator
-# 管理员账号：admin 密码：admin
+# 绠＄悊鍛樿处鍙凤細admin 瀵嗙爜锛歛dmin
 
