@@ -44,15 +44,17 @@
         border-radius: 3em;
         background-image: url(/Content/login_bg.png);
         background-size: cover;
-        box-shadow: 10px 10px 20px #ddd;
-        transition: box-shadow 2s, border 2s;
-        border: 1px solid rgba(210, 210, 210, 1.0);
+        box-shadow: 20px 20px 80px #666;
+        transition: box-shadow 1s, border 1s, width 1s, padding-bottom 1s;
+        border: 1px solid rgba(150, 150, 150, 1.0);
         overflow: hidden;
     }
     .login-div-outer:hover{
-        box-shadow: 5px 5px 20px #666;
+        width: 101%;
+        padding-bottom: 51%;
+        box-shadow: 0px 0px 15px #000;
         border: 1px solid rgba(110, 110, 110, 1.0);
-        transition: box-shadow 1s, border 1s;
+        transition: box-shadow 1s, border 1s, width 1s, padding-bottom 1s;
     }
     .login-label{
         color: rgba(255, 255, 255, 0.8);
@@ -95,6 +97,7 @@
         padding-right: 0.5em;
         transition: background-color 1s;
         font-weight: lighter;
+        border-radius: 3px;
     }
     .login-form-text :focus{
         background-color: rgb(204, 225, 240);
@@ -107,6 +110,7 @@
         background-color: #f0776c;
         margin-top: 2.5em;
         color: white;
+        border-radius: 3px;
     }
     .login-div-qrcode{
         position: relative;
@@ -114,7 +118,9 @@
         width: 200px;
         top: 210px;
         right: 340px;
-        opacity: 0.7;
+        opacity: 0.8;
+        border-radius: 3px;
+        overflow: hidden;
     }
 </style>
 
