@@ -9,6 +9,7 @@
 <script src="~/Scripts/jquery.validate.js"></script>
 <script type="text/javascript">
     function post() {
+        return;
         var account = $("#txt_Account").val();
         var password = $("#txt_Password").val();
         //alert(localStorage.getItem("money"));
@@ -58,39 +59,41 @@
         float: right;
         width: 200px;
         top: 210px;
-        right: 200px;
+        right: 210px;
         opacity: 0.8;
         border-radius: 3px;
         overflow: hidden;
     }
 </style>
+<div class="super-outer">
+    <div class="login-div-outer">
+        <div class="login-div-main">
+            <label class="login-label">登录</label>
 
-<div class="login-div-outer">
-    <div class="login-div-main">
-        <label class="login-label">登录</label>
-        <img class="login-div-qrcode" src="/Content/qrcode.jpg">
-
-        <form class="login-form">
-            <div class="login-info-block">
-                <label>用&nbsp;户&nbsp;名</label><br>
-                <input type="text" id="txt_Account" class="login-form-text" required>
+            <div class="login-div-qrcode">
+                <img width="200px" src="/Content/qrcode.jpg">
             </div>
-            <div class="login-info-block">
-                <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label><br>
-                <input type="password" id="txt_Password" class="login-form-text" required>
-            </div>
-            <div class="login-info-block">
-                <input type="button" id="login" value="登&nbsp;&nbsp;录" onclick="post()" class="login-form-button" >
-            </div>
-            <div class="login-info-block">
-                <div class="login-form-register-div">
-                    <a href="/Home/Register" class="login-form-register">注册</a>
+            <form class="login-form">
+                <div class="login-info-block">
+                    <label>用&nbsp;户&nbsp;名</label><br>
+                    <input type="text" id="txt_Account" class="login-form-text" required>
                 </div>
-            </div>
-        </form>
+                <div class="login-info-block">
+                    <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label><br>
+                    <input type="password" id="txt_Password" class="login-form-text" required>
+                </div>
+                <div class="login-info-block">
+                    <input type="button" id="login" value="登&nbsp;&nbsp;录" onclick="post()" class="login-form-button" >
+                </div>
+                <div class="login-info-block">
+                    <div class="login-form-register-div">
+                        <a href="/Home/Register" class="login-form-register">注册</a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-
 <!--
 <form class="sign-up">
     <h1 class="sign-up-title">现在登录</h1>
