@@ -320,10 +320,17 @@
             <div class="panel-body">
                 <div class="col-sm-6">
                     <div class="list-group">
+                        <a class="list-group-item-heading">数据库记录</a>
                         @foreach (var item in ViewBag.contextview)
                         {
                             <a href="#" class="list-group-item">@item</a>
                         }
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="list-group">
+                        <a class="list-group-item-heading" id="history_now">当前页面记录</a>
+                        
                     </div>
                 </div>
 
@@ -397,4 +404,48 @@
                 }
             );
         });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $(".button_equal").click(
+            function () {
+                var str2 = $(".result_panel").text();
+                var index1 = str2.indexOf("=");
+                var index2 = str2.indexOf("+");
+                var index3 = str2.indexOf("-");
+                var index4 = str2.indexOf("×");
+                var index5 = str2.indexOf("÷");
+                var iaccount = "@ViewBag.Message";
+                //alert(str2);
+                if (iaccount == "欢迎登录") {
+
+                } else {
+                    if (index1 != -1) {
+                        if (index2 != -1 || index3 != -1 || index4 != -1 || index5 != -1) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/Home/IuserHistory",
+                                async: true,
+                                dataType: "json",
+                                data: { "AccountName": iaccount, "AccountHistory": str2 },
+                                success: function (result) {
+                                    //alert(result.Data);
+                                    //console.log(result);
+                                    if (result.Data == "success") {
+                                        $("#history_now").append('<a href="#" class="list-group-item">' + str2 + '</a>');
+                                        //window.location.href = "/Home/Index";
+                                    } else {
+                                        alert("历史记录失败！");
+                                    }
+
+                                }
+                            });
+
+                        } else { }
+                    } else { }
+                }
+                
+            }
+        );
+    });
 </script>

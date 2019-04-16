@@ -58,6 +58,36 @@ namespace Fried_Chicken_Calculator.Controllers
         }
 
         [HttpPost]
+        public JsonResult IuserHistory(string AccountName,string AccountHistory)
+        {
+            CalculatorDBContext Context = new CalculatorDBContext();
+            JsonResult result = new JsonResult();
+            var contextuse = from a in Context.Users
+                             where a.UserName == AccountName
+                             select a.UserNumber;
+            //var contextdb = from b in Context.UserHistories
+            //                where b.UserNumber == contextuse.FirstOrDefault()
+            //                select b;
+            //foreach (var item in contextdb)
+            //{
+            //    item.History = AccountHistory;
+            //    break;
+            //}
+            Context.UserHistories.Add(
+                new UserHistory
+                {
+                    UserNumber = contextuse.FirstOrDefault(),
+                    History = AccountHistory,
+                }
+                );
+            Context.SaveChanges();
+            result.ContentType = "message";
+            result.Data = "success";
+            return Json(result);
+        }
+
+
+        [HttpPost]
         public JsonResult Transfer(string User_number,string User_money)
         {
             //ViewBag.Message = Session["user"];
