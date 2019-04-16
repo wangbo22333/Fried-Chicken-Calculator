@@ -50,7 +50,7 @@ namespace Fried_Chicken_Calculator.Controllers
             {
                 ViewBag.Message = "欢迎登录";
                 ViewBag.contextview = "无";
-                ViewBag.contextmoney = "请登录";
+                ViewBag.contextmoney = "请登录查看余额";
                 ViewBag.TransferTo = "无";
                 ViewBag.TransferIn = "无";
             }
@@ -80,9 +80,25 @@ namespace Fried_Chicken_Calculator.Controllers
             if (mymoney.UserMoney > Imoney)
             {
                 mymoney.UserMoney = mymoney.UserMoney - Imoney;
+                Context.UserTransferTos.Add(
+                new UserTransferTo
+                {
+                    UserNumber = mymoney.UserNumber,
+                    ToHistory = "向" + User_number + "转账" + User_money,
+
+                }
+                );
+                Context.UserTransferIns.Add(
+                    new UserTransferIn
+                    {
+                        UserNumber = User_number,
+                        InHistory = mymoney.UserName + "向我转账" + User_money,
+                    }
+                    );
                 Context.SaveChanges();
                 result.ContentType = "message";
                 result.Data = "success";
+
                 return Json(result);
             }
             else
