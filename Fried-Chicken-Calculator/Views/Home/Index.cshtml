@@ -296,30 +296,42 @@
 
 </script>
 
-<div class="row">
-    <div class="col-md-6">
-        <h2 id=" iusername">@ViewBag.Message</h2>
-        <p>
-            历史记录：
-        </p>
-        @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>*@
-    </div>
-    <div class="col-md-4">
-        <h2 id="Imoney">@ViewBag.contextmoney</h2>
-
-    </div>
-
+<div class="alert alert-dismissable" role="alert">
+    <h2 id=" iusername">@ViewBag.Message</h2>
 </div>
-@foreach (var item in ViewBag.contextview)
-{
-    <tr>
-        <td>
-            @item
-        </td>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">计算器历史记录</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-6">
+                    <div class="list-group">
+                        @foreach (var item in ViewBag.contextview)
+                        {
+                        <a href="#" class="list-group-item">@item</a>                          
+                        }
+                    </div>
+                </div>
+                
+            </div>
+        </div>
 
-    </tr>
-}
+    </div><!-- /.col-sm-4 -->
+    <div class="col-sm-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">转账历史记录</h3>
+            </div>
+            <div class="panel-body">
+                Panel content
+            </div>
+        </div>
 
+    </div><!-- /.col-sm-4 -->
+   
+</div>
 
 
     <script type="text/javascript">

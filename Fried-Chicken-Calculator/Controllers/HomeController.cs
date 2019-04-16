@@ -37,7 +37,7 @@ namespace Fried_Chicken_Calculator.Controllers
             else
             {
                 ViewBag.Message = "欢迎登录";
-                ViewBag.contextview = "没有历史记录";
+                ViewBag.contextview = "无";
                 ViewBag.contextmoney = "";
             }
             return View();
