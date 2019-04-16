@@ -172,7 +172,10 @@ namespace Fried_Chicken_Calculator.Controllers
         }
         public ActionResult Login()
         {
-            ViewBag.Message = "Your contact page.";
+            if (Session["user"] != null)
+            {
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
+            }
 
             return View();
         }
