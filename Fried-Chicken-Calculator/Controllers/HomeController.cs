@@ -156,6 +156,7 @@ namespace Fried_Chicken_Calculator.Controllers
                               where a.UserName == Account
                               select a.UserPassword;
             JsonResult result = new JsonResult();
+            Session["user"] = null;
             if(Password == contextuser.FirstOrDefault())
             {
                 result.ContentType = "message";
